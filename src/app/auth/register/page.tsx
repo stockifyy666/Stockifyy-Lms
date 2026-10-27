@@ -32,10 +32,7 @@ export default function RegisterPage() {
     <div style={{ minHeight: '100vh', display: 'flex', flexWrap: 'wrap', background: 'var(--bg)' }}>
       {/* Left accent panel */}
       <div style={{ width: 380, minWidth: 0, flex: '0 1 380px', background: 'var(--accent)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '40px 36px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Image src="/logo.svg" alt="Stockifyy" width={28} height={28} style={{ filter: 'brightness(10)', flexShrink: 0 }} />
-          <span style={{ fontWeight: 800, fontSize: 18, color: '#fff', letterSpacing: '-0.02em' }}>Stockifyy</span>
-        </div>
+        <Image src="/logo.svg" alt="Stockifyy" width={140} height={40} style={{ filter: 'brightness(10)' }} />
         <div>
           <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: 24, fontWeight: 700, lineHeight: 1.35, letterSpacing: '-0.02em', marginBottom: 12 }}>
             Start learning today.
