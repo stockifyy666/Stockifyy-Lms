@@ -3,12 +3,23 @@
 import { useState } from 'react'
 import UserSidebar from './UserSidebar'
 import Image from 'next/image'
-import { RiMenuLine } from 'react-icons/ri'
+import { RiMenuLine, RiLogoutBoxLine } from 'react-icons/ri'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 interface Profile { full_name: string; email: string }
 
 export default function UserShell({ profile, children }: { profile: Profile; children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
+
+  async function handleLogout() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    toast.success('Signed out')
+    router.push('/auth/login')
+  }
 
   return (
     <div className="app-shell">
@@ -20,7 +31,9 @@ export default function UserShell({ profile, children }: { profile: Profile; chi
             <RiMenuLine style={{ fontSize: 18 }} />
           </button>
           <Image src="/logo.svg" alt="Stockifyy" width={100} height={28} priority style={{ height: 'auto' }} />
-          <div style={{ width: 36 }} />
+          <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', cursor: 'pointer', color: 'var(--danger)' }}>
+            <RiLogoutBoxLine style={{ fontSize: 17 }} />
+          </button>
         </div>
         {children}
       </div>
