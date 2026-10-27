@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { RiPlayFill, RiTimeLine } from 'react-icons/ri'
 
-interface Video { id: string; title: string; description: string; expires_at: string; created_at: string }
+interface Video { id: string; title: string; description: string; expires_at: string; created_at: string; thumbnail_url?: string }
 
 export default function VideoCard({ video }: { video: Video }) {
   const daysLeft = Math.ceil((new Date(video.expires_at).getTime() - Date.now()) / 86400000)
@@ -24,13 +25,25 @@ export default function VideoCard({ video }: { video: Video }) {
         }}
       >
         {/* Thumbnail */}
-        <div style={{ aspectRatio: '16/9', background: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+        <div style={{ aspectRatio: '16/9', background: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+          {video.thumbnail_url
+            ? <Image src={video.thumbnail_url} alt={video.title} fill style={{ objectFit: 'cover' }} sizes="(max-width: 600px) 100vw, 280px" />
+            : null
+          }
+          {/* Play overlay */}
           <div style={{
-            width: 44, height: 44, borderRadius: '50%',
-            background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 4px 14px rgba(99,102,241,0.4)',
+            position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: video.thumbnail_url ? 'rgba(0,0,0,0.25)' : 'transparent',
+            transition: 'background 0.2s',
           }}>
-            <RiPlayFill style={{ color: '#fff', fontSize: 20, marginLeft: 2 }} />
+            <div style={{
+              width: 44, height: 44, borderRadius: '50%',
+              background: video.thumbnail_url ? 'rgba(255,255,255,0.9)' : 'var(--accent)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
+            }}>
+              <RiPlayFill style={{ color: video.thumbnail_url ? 'var(--accent)' : '#fff', fontSize: 20, marginLeft: 2 }} />
+            </div>
           </div>
           {urgent && (
             <span className="badge" style={{ position: 'absolute', top: 10, right: 10, background: 'var(--danger-bg)', color: 'var(--danger)', fontSize: 11 }}>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import AdminSidebar from './AdminSidebar'
+import Image from 'next/image'
 import { RiMenuLine } from 'react-icons/ri'
 
 interface Profile { full_name: string; email: string; role: string }
@@ -13,12 +14,13 @@ export default function AdminShell({ profile, children }: { profile: Profile; ch
     <div className="app-shell">
       <AdminSidebar profile={profile} open={open} onClose={() => setOpen(false)} />
       <div className="main-content">
-        {/* Inject hamburger into topbar via CSS trick — children render topbar */}
-        <div style={{ position: 'relative' }}>
-          <button className="menu-btn" onClick={() => setOpen(true)}
-            style={{ position: 'absolute', top: 12, left: 16, zIndex: 11 }}>
+        {/* Mobile-only header bar */}
+        <div className="mobile-header">
+          <button className="menu-btn" onClick={() => setOpen(true)} style={{ display: 'flex' }}>
             <RiMenuLine style={{ fontSize: 18 }} />
           </button>
+          <Image src="/logo.svg" alt="Stockifyy" width={100} height={28} />
+          <div style={{ width: 36 }} />
         </div>
         {children}
       </div>

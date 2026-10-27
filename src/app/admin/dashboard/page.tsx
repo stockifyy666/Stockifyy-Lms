@@ -28,11 +28,11 @@ export default async function AdminDashboard() {
       <div>
         {/* Topbar */}
         <div className="topbar">
-          <div>
-            <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--text-primary)' }}>Dashboard</div>
-            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 1 }}>Overview of your LMS</div>
+          <div style={{ minWidth: 0 }}>
+            <div className="topbar-title" style={{ fontWeight: 700, fontSize: 15, color: 'var(--text-primary)' }}>Dashboard</div>
+            <div className="topbar-subtitle" style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 1 }}>Overview of your LMS</div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: 'var(--text-muted)' }}>
+          <div className="topbar-date" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: 'var(--text-muted)', flexShrink: 0 }}>
             <RiCalendarLine style={{ fontSize: 14 }} />
             {today}
           </div>

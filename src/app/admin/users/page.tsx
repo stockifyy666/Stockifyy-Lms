@@ -23,16 +23,17 @@ export default async function AdminUsers() {
     <AdminShell profile={profile}>
       <div>
         <div className="topbar">
-          <div>
-            <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--text-primary)' }}>Users</div>
-            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 1 }}>
+          <div style={{ minWidth: 0 }}>
+            <div className="topbar-title" style={{ fontWeight: 700, fontSize: 15, color: 'var(--text-primary)' }}>Users</div>
+            <div className="topbar-subtitle" style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 1 }}>
               {students} student{students !== 1 ? 's' : ''} · {admins} admin{admins !== 1 ? 's' : ''}
             </div>
           </div>
         </div>
 
         <div className="page-content">
-          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+          {/* Desktop table */}
+          <div className="card video-table-wrap" style={{ padding: 0, overflow: 'hidden' }}>
             <table className="data-table">
               <thead>
                 <tr>
@@ -47,26 +48,17 @@ export default async function AdminUsers() {
                   <tr key={u.id}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
-                        <div className="avatar" style={{
-                          width: 34, height: 34, fontSize: 13, flexShrink: 0,
-                          background: u.role === 'admin' ? 'var(--accent)' : 'var(--info)',
-                        }}>
+                        <div className="avatar" style={{ width: 34, height: 34, fontSize: 13, flexShrink: 0, background: u.role === 'admin' ? 'var(--accent)' : 'var(--info)' }}>
                           {u.full_name?.charAt(0)?.toUpperCase() ?? '?'}
                         </div>
                         <div>
-                          <div style={{ fontWeight: 600, fontSize: 13.5, color: 'var(--text-primary)' }}>
-                            {u.full_name || '—'}
-                          </div>
-                          {u.id === user.id && (
-                            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>You</span>
-                          )}
+                          <div style={{ fontWeight: 600, fontSize: 13.5, color: 'var(--text-primary)' }}>{u.full_name || '—'}</div>
+                          {u.id === user.id && <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>You</span>}
                         </div>
                       </div>
                     </td>
                     <td style={{ color: 'var(--text-secondary)', fontSize: 13 }}>{u.email}</td>
-                    <td>
-                      <RoleToggle userId={u.id} currentRole={u.role} isSelf={u.id === user.id} />
-                    </td>
+                    <td><RoleToggle userId={u.id} currentRole={u.role} isSelf={u.id === user.id} /></td>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: 'var(--text-muted)', fontSize: 12.5 }}>
                         <RiCalendarLine style={{ fontSize: 13, flexShrink: 0 }} />
@@ -77,6 +69,35 @@ export default async function AdminUsers() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="card video-card-list" style={{ padding: 0, overflow: 'hidden' }}>
+            {users?.map(u => (
+              <div key={u.id} className="video-card-item">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
+                  <div className="avatar" style={{ width: 38, height: 38, fontSize: 14, flexShrink: 0, background: u.role === 'admin' ? 'var(--accent)' : 'var(--info)' }}>
+                    {u.full_name?.charAt(0)?.toUpperCase() ?? '?'}
+                  </div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{ fontWeight: 700, fontSize: 14, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {u.full_name || '—'}
+                      </span>
+                      {u.id === user.id && <span style={{ fontSize: 11, color: 'var(--text-muted)', flexShrink: 0 }}>You</span>}
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: 2 }}>{u.email}</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: 'var(--text-muted)', fontSize: 12 }}>
+                    <RiCalendarLine style={{ fontSize: 13 }} />
+                    {new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </div>
+                  <RoleToggle userId={u.id} currentRole={u.role} isSelf={u.id === user.id} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
