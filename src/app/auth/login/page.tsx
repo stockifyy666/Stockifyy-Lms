@@ -31,7 +31,7 @@ export default function LoginPage() {
     <div style={{ minHeight: '100vh', display: 'flex', flexWrap: 'wrap', background: 'var(--bg)' }}>
       {/* Left accent panel */}
       <div style={{ width: 380, minWidth: 0, flex: '0 1 380px', background: 'var(--accent)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '40px 36px' }}>
-        <Image src="/logo.svg" alt="Stockifyy" width={140} height={40} style={{ filter: 'brightness(10)' }} />
+        <Image src="/logo.svg" alt="Stockifyy" width={140} height={40} />
         <div>
           <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: 24, fontWeight: 700, lineHeight: 1.35, letterSpacing: '-0.02em', marginBottom: 12 }}>
             Learn at your own pace, securely.
