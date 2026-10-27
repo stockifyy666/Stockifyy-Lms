@@ -25,7 +25,11 @@ export default function RoleToggle({ userId, currentRole, isSelf }: { userId: st
   function handleOpen() {
     if (isSelf || loading) return
     const rect = btnRef.current?.getBoundingClientRect()
-    if (rect) setMenuPos({ top: rect.bottom + 6, left: rect.left })
+    if (rect) {
+      const menuWidth = 160
+      const left = Math.min(rect.left, window.innerWidth - menuWidth - 8)
+      setMenuPos({ top: rect.bottom + 6, left: Math.max(8, left) })
+    }
     setOpen(o => !o)
   }
 

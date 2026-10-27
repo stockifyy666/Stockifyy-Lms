@@ -502,3 +502,9 @@ body {
   border: 1px solid #e2e8f0;
   box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
 }
+
+/* Auth mobile: hide left panel, right panel fills screen */
+@media (max-width: 600px) {
+  .auth-left { display: none; }
+  .auth-right { width: 100%; min-width: 0; flex: 1 1 100%; }
+}
