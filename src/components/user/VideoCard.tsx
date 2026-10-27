@@ -14,7 +14,7 @@ export default function VideoCard({ video }: { video: Video }) {
     <Link href={`/watch/${video.id}`} style={{ textDecoration: 'none' }}>
       <div
         className="card"
-        style={{ overflow: 'hidden', cursor: 'pointer', transition: 'transform 0.15s, box-shadow 0.15s' }}
+        style={{ overflow: 'hidden', cursor: 'pointer', transition: 'transform 0.15s, box-shadow 0.15s', display: 'flex', flexDirection: 'column', height: '100%' }}
         onMouseEnter={e => {
           (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)'
           ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'var(--shadow-md)'
@@ -53,15 +53,15 @@ export default function VideoCard({ video }: { video: Video }) {
         </div>
 
         {/* Info */}
-        <div style={{ padding: '14px 16px' }}>
-          <div style={{ fontWeight: 600, fontSize: 13.5, color: 'var(--text-primary)', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-            {video.title}
-          </div>
-          {video.description && (
-            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.5 }}>
-              {video.description}
+        <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: 600, fontSize: 13.5, color: 'var(--text-primary)', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              {video.title}
             </div>
-          )}
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.5, minHeight: '2.4em' }}>
+              {video.description || ''}
+            </div>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--border)' }}>
             <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
               {new Date(video.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}

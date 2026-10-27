@@ -38,7 +38,7 @@ export default function LoginPage() {
         <div className="auth-line-white" style={{ position: 'absolute', top: '30%', left: 20, width: 1, height: 80, pointerEvents: 'none' }} />
 
         {/* Logo */}
-        <Image src="/logo.svg" alt="Stockifyy" width={140} height={40} style={{ position: 'relative', zIndex: 1 }} />
+        <Image src="/logo.svg" alt="Stockifyy" width={140} height={40} priority style={{ position: 'relative', zIndex: 1, height: 'auto' }} />
 
         {/* Center content */}
         <div style={{ position: 'relative', zIndex: 1 }}>

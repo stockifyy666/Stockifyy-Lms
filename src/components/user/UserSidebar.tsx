@@ -33,7 +33,7 @@ export default function UserSidebar({ profile, open, onClose }: {
       <aside className={`sidebar${open ? ' open' : ''}`}>
         {/* Brand */}
         <div style={{ height: 60, padding: '0 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-          <Image src="/logo.svg" alt="Stockifyy" width={120} height={34} />
+          <Image src="/logo.svg" alt="Stockifyy" width={120} height={34} priority style={{ height: 'auto' }} />
         </div>
 
         {/* Nav */}

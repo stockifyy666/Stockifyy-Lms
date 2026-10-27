@@ -19,7 +19,7 @@ export default function UserShell({ profile, children }: { profile: Profile; chi
           <button className="menu-btn" onClick={() => setOpen(true)} style={{ display: 'flex' }}>
             <RiMenuLine style={{ fontSize: 18 }} />
           </button>
-          <Image src="/logo.svg" alt="Stockifyy" width={100} height={28} />
+          <Image src="/logo.svg" alt="Stockifyy" width={100} height={28} priority style={{ height: 'auto' }} />
           <div style={{ width: 36 }} />
         </div>
         {children}

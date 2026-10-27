@@ -49,7 +49,7 @@ export default async function WatchPage({ params }: { params: Promise<{ id: stri
           Back
         </Link>
 
-        <Image src="/logo.svg" alt="Stockifyy" width={100} height={28} />
+        <Image src="/logo.svg" alt="Stockifyy" width={100} height={28} priority style={{ height: 'auto' }} />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--text-muted)' }}>
           <RiTimeLine style={{ fontSize: 13 }} />
