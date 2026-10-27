@@ -504,7 +504,16 @@ body {
 }
 
 /* Auth mobile: hide left panel, right panel fills screen */
-@media (max-width: 600px) {
-  .auth-left { display: none; }
-  .auth-right { width: 100%; min-width: 0; flex: 1 1 100%; }
+@media (max-width: 768px) {
+  .auth-left { display: none !important; }
+  .auth-right {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 100% !important;
+    padding: 32px 16px !important;
+  }
+  .auth-card {
+    max-width: 100% !important;
+    padding: 28px 20px !important;
+  }
 }
