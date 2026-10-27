@@ -37,7 +37,7 @@ export default function UserSidebar({ profile, open, onClose }: {
         </div>
 
         {/* Nav */}
-        <nav style={{ flex: 1, padding: '12px 8px' }}>
+        <nav style={{ flex: 1, padding: '12px 8px', overflowY: 'auto', minHeight: 0 }}>
           <div className="nav-section-label" style={{ marginBottom: 6, marginTop: 4 }}>Navigation</div>
           <Link href="/dashboard" style={{ textDecoration: 'none', display: 'block' }} onClick={onClose}>
             <div className="nav-item active">
