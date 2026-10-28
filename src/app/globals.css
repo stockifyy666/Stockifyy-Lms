@@ -438,6 +438,10 @@ body {
   flex-wrap: wrap;
 }
 
+/* ── Fullscreen video player ─────────────────────────── */
+:fullscreen video { max-height: 100vh !important; }
+:-webkit-full-screen video { max-height: 100vh !important; }
+
 /* ── Video list responsive ───────────────────────────── */
 .video-table-wrap { overflow-x: auto; }
 .video-card-list { display: none; }

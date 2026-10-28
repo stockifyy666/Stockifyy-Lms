@@ -19,6 +19,7 @@ export default function VideoPlayer({ videoUrl, title, userEmail, userName }: Vi
   const [volume, setVolume] = useState(1)
   const [muted, setMuted] = useState(false)
   const [watermarkPos, setWatermarkPos] = useState(0)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   const positions = [
     { left: '5%', top: '8%' },
@@ -86,6 +87,22 @@ export default function VideoPlayer({ videoUrl, title, userEmail, userName }: Vi
     const m = Math.floor(s / 60)
     return `${m}:${Math.floor(s % 60).toString().padStart(2, '0')}`
   }
+
+  function toggleFullscreen() {
+    const el = containerRef.current
+    if (!el) return
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().catch(() => {})
+    } else {
+      document.exitFullscreen().catch(() => {})
+    }
+  }
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', handler)
+    return () => document.removeEventListener('fullscreenchange', handler)
+  }, [])
 
   const pos = positions[watermarkPos]
 
@@ -182,6 +199,14 @@ export default function VideoPlayer({ videoUrl, title, userEmail, userName }: Vi
             onChange={handleVolume}
             style={{ width: 72, accentColor: '#818cf8', cursor: 'pointer', height: 3 }}
           />
+
+          <button onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} style={{ color: '#fff', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex' }}>
+            {isFullscreen ? (
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+            ) : (
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            )}
+          </button>
         </div>
       </div>
     </div>
