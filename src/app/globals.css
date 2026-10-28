@@ -439,8 +439,10 @@ body {
 }
 
 /* ── Fullscreen video player ─────────────────────────── */
-:fullscreen video { max-height: 100vh !important; }
-:-webkit-full-screen video { max-height: 100vh !important; }
+:fullscreen { width: 100% !important; height: 100vh !important; }
+:fullscreen video { width: 100% !important; height: 100vh !important; max-height: 100vh !important; object-fit: contain !important; }
+:-webkit-full-screen { width: 100% !important; height: 100vh !important; }
+:-webkit-full-screen video { width: 100% !important; height: 100vh !important; max-height: 100vh !important; object-fit: contain !important; }
 
 /* ── Video list responsive ───────────────────────────── */
 .video-table-wrap { overflow-x: auto; }

@@ -109,12 +109,31 @@ export default function VideoPlayer({ videoUrl, title, userEmail, userName }: Vi
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', background: '#000', borderRadius: 12, overflow: 'hidden', userSelect: 'none', WebkitUserSelect: 'none' }}
+      style={{
+        position: 'relative',
+        background: '#000',
+        borderRadius: isFullscreen ? 0 : 12,
+        overflow: 'hidden',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        width: '100%',
+        height: isFullscreen ? '100vh' : undefined,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
     >
       <video
         ref={videoRef}
         src={videoUrl}
-        style={{ width: '100%', aspectRatio: '16/9', display: 'block', maxHeight: '65vh' }}
+        style={{
+          width: '100%',
+          display: 'block',
+          aspectRatio: isFullscreen ? undefined : '16/9',
+          maxHeight: isFullscreen ? '100vh' : '65vh',
+          height: isFullscreen ? '100vh' : undefined,
+          objectFit: 'contain',
+        }}
         onTimeUpdate={() => videoRef.current && setCurrentTime(videoRef.current.currentTime)}
         onLoadedMetadata={() => videoRef.current && setDuration(videoRef.current.duration)}
         onEnded={() => setPlaying(false)}
