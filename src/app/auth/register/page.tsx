@@ -5,13 +5,15 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
-import { RiMailLine, RiLockLine, RiUserLine, RiArrowRightLine } from 'react-icons/ri'
+import { RiMailLine, RiLockLine, RiUserLine, RiArrowRightLine, RiPhoneLine, RiIdCardLine } from 'react-icons/ri'
 import toast from 'react-hot-toast'
 
 export default function RegisterPage() {
   const router = useRouter()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [rollNumber, setRollNumber] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -21,7 +23,7 @@ export default function RegisterPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signUp({
       email, password,
-      options: { data: { full_name: fullName, role: 'user' } },
+      options: { data: { full_name: fullName, phone, roll_number: rollNumber, role: 'user' } },
     })
     if (error) { toast.error(error.message); setLoading(false); return }
     toast.success('Account created! Welcome to Stockifyy.')
@@ -82,7 +84,7 @@ export default function RegisterPage() {
             <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 6 }}>Join Stockifyy and start watching lectures.</p>
           </div>
 
-          <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
               <label className="form-label">Full name</label>
               <div style={{ position: 'relative' }}>
@@ -96,6 +98,22 @@ export default function RegisterPage() {
               <div style={{ position: 'relative' }}>
                 <RiMailLine style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 16, pointerEvents: 'none' }} />
                 <input className="input" type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" style={{ paddingLeft: 38 }} />
+              </div>
+            </div>
+
+            <div>
+              <label className="form-label">Phone number</label>
+              <div style={{ position: 'relative' }}>
+                <RiPhoneLine style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 16, pointerEvents: 'none' }} />
+                <input className="input" type="tel" required value={phone} onChange={e => setPhone(e.target.value)} placeholder="+92 300 0000000" style={{ paddingLeft: 38 }} />
+              </div>
+            </div>
+
+            <div>
+              <label className="form-label">Roll number</label>
+              <div style={{ position: 'relative' }}>
+                <RiIdCardLine style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 16, pointerEvents: 'none' }} />
+                <input className="input" type="text" required value={rollNumber} onChange={e => setRollNumber(e.target.value)} placeholder="e.g. CS-2021-001" style={{ paddingLeft: 38 }} />
               </div>
             </div>
 

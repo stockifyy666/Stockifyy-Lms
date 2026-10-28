@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
-import { RiMailLine, RiLockLine, RiArrowRightLine } from 'react-icons/ri'
+import { RiMailLine, RiLockLine, RiArrowRightLine, RiIdCardLine } from 'react-icons/ri'
 import toast from 'react-hot-toast'
 
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
+  const [rollNumber, setRollNumber] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -22,7 +23,13 @@ export default function LoginPage() {
     if (error) { toast.error(error.message); setLoading(false); return }
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
-      const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
+      const { data: profile } = await supabase.from('profiles').select('role, roll_number').eq('id', user.id).single()
+      if (profile?.roll_number && profile.roll_number !== rollNumber) {
+        await supabase.auth.signOut()
+        toast.error('Roll number does not match.')
+        setLoading(false)
+        return
+      }
       router.push(profile?.role === 'admin' ? '/admin/dashboard' : '/dashboard')
     }
   }
@@ -87,6 +94,14 @@ export default function LoginPage() {
               <div style={{ position: 'relative' }}>
                 <RiMailLine style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 16, pointerEvents: 'none' }} />
                 <input className="input" type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" style={{ paddingLeft: 38 }} />
+              </div>
+            </div>
+
+            <div>
+              <label className="form-label">Roll number</label>
+              <div style={{ position: 'relative' }}>
+                <RiIdCardLine style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 16, pointerEvents: 'none' }} />
+                <input className="input" type="text" required value={rollNumber} onChange={e => setRollNumber(e.target.value)} placeholder="e.g. CS-2021-001" style={{ paddingLeft: 38 }} />
               </div>
             </div>
 
